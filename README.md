@@ -9,12 +9,12 @@
 
 # 大模型支持
 
--[x] OpenAI
--[x] 智谱 AI
--[ ] MiniMax
--[ ] 文心一言
--[ ] Claude
--[ ] Gemini
+- [x] OpenAI
+- [x] 智谱 AI
+- [ ] MiniMax
+- [ ] 文心一言
+- [ ] Claude
+- [ ] Gemini
 
 ## License
 
