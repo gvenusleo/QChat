@@ -19,7 +19,7 @@ class ItemCard extends StatelessWidget {
         color: Theme.of(context).colorScheme.surfaceVariant.withAlpha(150),
         borderRadius: BorderRadius.circular(12),
       ),
-      margin: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+      margin: const EdgeInsets.symmetric(horizontal: 12),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +27,7 @@ class ItemCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 17),
           ),
           const SizedBox(height: 4),
           if (description != null)
@@ -38,7 +38,10 @@ class ItemCard extends StatelessWidget {
                 style: const TextStyle(fontSize: 14),
               ),
             ),
-          item,
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: item,
+          ),
         ],
       ),
     );

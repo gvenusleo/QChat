@@ -40,6 +40,7 @@ class _OpenAISettingViewState extends State<OpenAISettingView> {
                     prefs.setString('openAIKey', value);
                   },
                 ),
+                const SizedBox(height: 12),
                 InputItemCard(
                   title: 'API Server',
                   controller: _serverController,

@@ -47,6 +47,7 @@ class _ChatSettingViewState extends State<ChatSettingView> {
                 });
               },
             ),
+            const SizedBox(height: 12),
             ItemCard(
               title: 'AI 服务',
               item: InkWell(
@@ -74,6 +75,7 @@ class _ChatSettingViewState extends State<ChatSettingView> {
                 ),
               ),
             ),
+            const SizedBox(height: 12),
             ItemCard(
               title: 'AI 模型',
               item: InkWell(
@@ -101,6 +103,7 @@ class _ChatSettingViewState extends State<ChatSettingView> {
                 ),
               ),
             ),
+            const SizedBox(height: 12),
             SlideItemCard(
               title: 'Temperature',
               description: '采样温度，用于控制输出的随机性，取值范围是：(0.0,1.0]，'
@@ -117,6 +120,7 @@ class _ChatSettingViewState extends State<ChatSettingView> {
                 });
               },
             ),
+            const SizedBox(height: 12),
             SlideItemCard(
               title: '对话历史',
               description: '每次请求附带的历史对话数量。',

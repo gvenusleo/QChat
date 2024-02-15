@@ -2,6 +2,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qchat/ui/viewmodels/theme_setting/theme_setting_controller.dart';
+import 'package:qchat/ui/widgets/item_card.dart';
 
 class ThemeSettingView extends StatelessWidget {
   ThemeSettingView({super.key});
@@ -26,93 +27,70 @@ class ThemeSettingView extends StatelessWidget {
             ),
             SliverList.list(
               children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .surfaceVariant
-                        .withAlpha(150),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
+                ItemCard(
+                  title: '主题背景',
+                  item: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text(
-                        '主题背景',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          for (int i = 0; i < 3; i++) ...[
-                            Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  c.updateThemeMode(i);
-                                },
-                                borderRadius: BorderRadius.circular(12),
-                                child: Obx(() => Container(
-                                      padding: const EdgeInsets.all(12),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        border: Border.all(
+                      for (int i = 0; i < 3; i++) ...[
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              c.updateThemeMode(i);
+                            },
+                            borderRadius: BorderRadius.circular(12),
+                            child: Obx(
+                              () => Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: c.themeMode.value == i
+                                        ? Theme.of(context).colorScheme.primary
+                                        : Theme.of(context).colorScheme.outline,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      _themeIcons[i],
+                                      color: c.themeMode.value == i
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .outline,
+                                    ),
+                                    Text(
+                                      _themeModes[i],
+                                      style: TextStyle(
+                                          fontSize: 12,
                                           color: c.themeMode.value == i
                                               ? Theme.of(context)
                                                   .colorScheme
                                                   .primary
                                               : Theme.of(context)
                                                   .colorScheme
-                                                  .outline,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Icon(
-                                            _themeIcons[i],
-                                            color: c.themeMode.value == i
-                                                ? Theme.of(context)
-                                                    .colorScheme
-                                                    .primary
-                                                : Theme.of(context)
-                                                    .colorScheme
-                                                    .outline,
-                                          ),
-                                          Text(
-                                            _themeModes[i],
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: c.themeMode.value == i
-                                                    ? Theme.of(context)
-                                                        .colorScheme
-                                                        .primary
-                                                    : Theme.of(context)
-                                                        .colorScheme
-                                                        .outline),
-                                          ),
-                                        ],
-                                      ),
-                                    )),
+                                                  .outline),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            if (i != 2) const SizedBox(width: 12),
-                          ],
-                        ],
-                      )
+                          ),
+                        ),
+                        if (i != 2) const SizedBox(width: 12),
+                      ],
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  padding: const EdgeInsets.all(12),
                   child: DynamicColorBuilder(
                     builder: (ColorScheme? light, ColorScheme? dark) {
                       return SwitchListTile(
@@ -133,25 +111,12 @@ class ThemeSettingView extends StatelessWidget {
                     },
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.all(12),
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .surfaceVariant
-                        .withAlpha(150),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
+                ItemCard(
+                  title: '全局字体',
+                  item: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        '全局字体',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(height: 8),
                       Obx(
                         () => Column(
                           mainAxisAlignment: MainAxisAlignment.center,

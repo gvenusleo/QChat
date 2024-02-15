@@ -36,6 +36,7 @@ class _ParameterSettingViewState extends State<ParameterSettingView> {
                     prefs.setDouble('defaultTemperature', value);
                   },
                 ),
+                const SizedBox(height: 12),
                 SlideItemCard(
                   title: '对话历史',
                   description: '每次请求附带的历史对话数量。',
