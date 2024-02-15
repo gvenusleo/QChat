@@ -12,6 +12,7 @@ class Zhipuai {
   /// https://open.bigmodel.cn/dev/api#http
   static Future<void> get(
     List<Message> messages,
+    double temperature,
     Function(String) onInsert,
     Function(String) onAdd,
     Function(String) onFinish,
@@ -25,13 +26,16 @@ class Zhipuai {
       });
     }
     const String url =
-        'https://open.bigmodel.cn/api/paas/v3/model-api/chatglm_turbo/sse-invoke';
+        'https://open.bigmodel.cn/api/paas/v4/chat/completions';
     final Map<String, String> headers = {
       'Content-Type': 'application/json',
       'Authorization': _getJwt(apiKey),
     };
     final Map<String, dynamic> data = {
-      'prompt': prompts,
+      'model': 'glm-4',
+      'messages': prompts,
+      'stream': 'True',
+      'temperature': temperature,
     };
     final Dio dio = initDio();
     final Response response = await dio.post(

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class ScrollToBottomButton extends StatelessWidget {
   const ScrollToBottomButton({
     required this.scrollController,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final ScrollController scrollController;
 

@@ -463,7 +463,7 @@ class _ChatViewState extends State<ChatView> {
     }
   }
 
-  /// 重新请求
+  /// 请求响应
   Future<void> _request(String text) async {
     _scrollController.animateTo(
       0.0,

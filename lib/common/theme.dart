@@ -5,7 +5,6 @@ ThemeData buildLightTheme(ColorScheme? lightColorScheme) {
   return ThemeData(
     brightness: Brightness.light,
     useMaterial3: true,
-    // fontFamily: 'SarasaUISC',
     colorScheme:
         prefs.getBool('useDynamicColor') ?? true ? lightColorScheme : null,
     appBarTheme: const AppBarTheme(
@@ -23,7 +22,6 @@ ThemeData buildDarkTheme(ColorScheme? darkColorScheme) {
   return ThemeData(
     brightness: Brightness.dark,
     useMaterial3: true,
-    // fontFamily: 'SarasaUISC',
     colorScheme:
         prefs.getBool('useDynamicColor') ?? true ? darkColorScheme : null,
     appBarTheme: const AppBarTheme(

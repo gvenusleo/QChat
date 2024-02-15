@@ -1,4 +1,6 @@
 /// https://github.com/xushengs/flutter_markdown_latex/blob/main/lib/src/latex_inline_syntax.dart
+// ignore_for_file: dangling_library_doc_comments
+
 import 'package:markdown/markdown.dart';
 
 class LatexInlineSyntax extends InlineSyntax {
