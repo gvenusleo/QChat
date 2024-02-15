@@ -21,13 +21,11 @@ class OpenAIBot {
     );
     List<ChatCompletionMessage> msgs = [];
     for (Message e in messages) {
-      msgs.add(
-        e.role == 'user'
+      msgs.add(e.role == 'user'
           ? ChatCompletionMessage.user(
               content: ChatCompletionUserMessageContent.string(e.content),
             )
-          : ChatCompletionMessage.assistant(content: e.content)
-      );
+          : ChatCompletionMessage.assistant(content: e.content));
     }
     final chatStream = client.createChatCompletionStream(
       request: CreateChatCompletionRequest(

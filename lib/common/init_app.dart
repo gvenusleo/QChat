@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
 import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:qchat/common/font_helper.dart';
 import 'package:qchat/common/global.dart';
 import 'package:qchat/models/collections/chat.dart';
 import 'package:qchat/models/collections/message.dart';
@@ -29,6 +30,7 @@ Future<void> initApp() async {
     );
   }
   prefs = await SharedPreferences.getInstance();
+  FontHelper.readThemeFont();
   final dir = await getApplicationDocumentsDirectory();
   isar = await Isar.open(
     [ChatSchema, MessageSchema],

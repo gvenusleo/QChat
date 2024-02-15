@@ -56,16 +56,6 @@ class _SettingViewState extends State<SettingView> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: ListItem(
-                    icon: const Icon(Icons.policy_outlined),
-                    title: '开源协议',
-                    onTap: () {
-                      Get.toNamed('/setting/license');
-                    },
-                  ),
-                ),
               ],
             ),
           ],

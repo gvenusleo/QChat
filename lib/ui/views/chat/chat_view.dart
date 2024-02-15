@@ -151,24 +151,14 @@ class _ChatViewState extends State<ChatView> {
 
   AppBar buildAppBar() {
     return AppBar(
-      title: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Obx(() => Text(
-                c.currentChat.value.name,
-                style: const TextStyle(fontSize: 18),
-              )),
-          Obx(() => Text(
-                c.currentChat.value.model,
-                style: const TextStyle(fontSize: 12),
-              )),
-        ],
-      ),
+      title: Obx(() => Text(
+            c.currentChat.value.name,
+            style: const TextStyle(fontSize: 18),
+          )),
       actions: [
         IconButton(
           onPressed: _createdChat,
-          icon: const Icon(Icons.playlist_add_rounded),
+          icon: const Icon(Icons.playlist_add_outlined),
         ),
         PopupMenuButton(
           position: PopupMenuPosition.under,

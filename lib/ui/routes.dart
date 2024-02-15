@@ -5,7 +5,6 @@ import 'package:qchat/ui/views/search/search_view.dart';
 import 'package:qchat/ui/views/setting/api_setting/api_setting_view.dart';
 import 'package:qchat/ui/views/setting/api_setting/openai_setting_view.dart';
 import 'package:qchat/ui/views/setting/api_setting/zhipuai_setting_view.dart';
-import 'package:qchat/ui/views/setting/license/license_view.dart';
 import 'package:qchat/ui/views/setting/parameter_setting/parameter_setting_view.dart';
 import 'package:qchat/ui/views/setting/setting_view.dart';
 import 'package:qchat/ui/views/setting/theme_setting/theme_setting_view.dart';
@@ -32,7 +31,5 @@ class AppRputes {
     // 参数设置
     GetPage(
         name: '/setting/parameter', page: () => const ParameterSettingView()),
-    // 开源协议
-    GetPage(name: '/setting/license', page: () => const LicenseView()),
   ];
 }

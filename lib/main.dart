@@ -2,8 +2,8 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:qchat/common/global.dart';
 import 'package:qchat/common/init_app.dart';
+import 'package:qchat/common/prefs_helper.dart';
 import 'package:qchat/ui/routes.dart';
 import 'package:qchat/ui/views/chat/chat_view.dart';
 import 'package:qchat/common/theme.dart';
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             ThemeMode.system,
             ThemeMode.light,
             ThemeMode.dark
-          ][prefs.getInt('themeMode') ?? 0],
+          ][PrefsHelper.themeMode],
           getPages: AppRputes.routes,
           defaultTransition: Transition.cupertino,
           home: const ChatView(),

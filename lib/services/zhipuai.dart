@@ -25,8 +25,7 @@ class Zhipuai {
         'content': e.content,
       });
     }
-    const String url =
-        'https://open.bigmodel.cn/api/paas/v4/chat/completions';
+    const String url = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
     final Map<String, String> headers = {
       'Content-Type': 'application/json',
       'Authorization': _getJwt(apiKey),

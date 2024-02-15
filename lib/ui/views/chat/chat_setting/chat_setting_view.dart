@@ -28,113 +28,110 @@ class _ChatSettingViewState extends State<ChatSettingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('设置对话'),
+      ),
       body: SafeArea(
-        child: CustomScrollView(
+        child: ListView(
           physics: const BouncingScrollPhysics(),
-          slivers: [
-            const SliverAppBar.large(
-              title: Text('设置对话'),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          children: [
+            InputItemCard(
+              title: '名称',
+              controller: _nameController,
+              onChanged: (value) {
+                _chat.name = value;
+                _chat.updatedAt = DateTime.now();
+                isar.writeTxnSync(() {
+                  isar.chats.putSync(_chat);
+                });
+              },
             ),
-            SliverList.list(
-              children: [
-                InputItemCard(
-                  title: '名称',
-                  controller: _nameController,
-                  onChanged: (value) {
-                    _chat.name = value;
-                    _chat.updatedAt = DateTime.now();
-                    isar.writeTxnSync(() {
-                      isar.chats.putSync(_chat);
-                    });
-                  },
-                ),
-                ItemCard(
-                  title: 'AI 服务',
-                  item: InkWell(
-                    onTap: _setProvider,
+            ItemCard(
+              title: 'AI 服务',
+              item: InkWell(
+                onTap: _setProvider,
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  width: double.infinity,
+                  height: 48,
+                  margin: const EdgeInsets.all(0),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.outline,
+                      width: 1,
+                    ),
                     borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      width: double.infinity,
-                      height: 48,
-                      margin: const EdgeInsets.all(0),
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.outline,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          _chat.provider,
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      ),
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      _chat.provider,
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
                 ),
-                ItemCard(
-                  title: 'AI 模型',
-                  item: InkWell(
-                    onTap: _setModel,
+              ),
+            ),
+            ItemCard(
+              title: 'AI 模型',
+              item: InkWell(
+                onTap: _setModel,
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  width: double.infinity,
+                  height: 48,
+                  margin: const EdgeInsets.all(0),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.outline,
+                      width: 1,
+                    ),
                     borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      width: double.infinity,
-                      height: 48,
-                      margin: const EdgeInsets.all(0),
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.outline,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          _chat.model,
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      ),
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      _chat.model,
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
                 ),
-                SlideItemCard(
-                  title: 'Temperature',
-                  description: '采样温度，用于控制输出的随机性，取值范围是：(0.0,1.0]，'
-                      '值越大，会使输出更随机，更具创造性；值越小，输出会更加稳定或确定。',
-                  value: _chat.temperature,
-                  minValue: 0.05,
-                  maxValue: 1.00,
-                  divisions: 19,
-                  afterChange: (value) {
-                    _chat.temperature = value;
-                    _chat.updatedAt = DateTime.now();
-                    isar.writeTxnSync(() {
-                      isar.chats.putSync(_chat);
-                    });
-                  },
-                ),
-                SlideItemCard(
-                  title: '对话历史',
-                  description: '每次请求附带的历史对话数量。',
-                  value: _chat.historyMessages.toDouble(),
-                  minValue: 0,
-                  maxValue: 20,
-                  divisions: 20,
-                  afterChange: (value) {
-                    _chat.historyMessages = value.toInt();
-                    _chat.updatedAt = DateTime.now();
-                    isar.writeTxnSync(() {
-                      isar.chats.putSync(_chat);
-                    });
-                  },
-                  stringFixed: 0,
-                ),
-              ],
+              ),
+            ),
+            SlideItemCard(
+              title: 'Temperature',
+              description: '采样温度，用于控制输出的随机性，取值范围是：(0.0,1.0]，'
+                  '值越大，会使输出更随机，更具创造性；值越小，输出会更加稳定或确定。',
+              value: _chat.temperature,
+              minValue: 0.05,
+              maxValue: 1.00,
+              divisions: 19,
+              afterChange: (value) {
+                _chat.temperature = value;
+                _chat.updatedAt = DateTime.now();
+                isar.writeTxnSync(() {
+                  isar.chats.putSync(_chat);
+                });
+              },
+            ),
+            SlideItemCard(
+              title: '对话历史',
+              description: '每次请求附带的历史对话数量。',
+              value: _chat.historyMessages.toDouble(),
+              minValue: 0,
+              maxValue: 20,
+              divisions: 20,
+              afterChange: (value) {
+                _chat.historyMessages = value.toInt();
+                _chat.updatedAt = DateTime.now();
+                isar.writeTxnSync(() {
+                  isar.chats.putSync(_chat);
+                });
+              },
+              stringFixed: 0,
             ),
           ],
         ),
@@ -214,6 +211,7 @@ class _ChatSettingViewState extends State<ChatSettingView> {
       context: context,
       useSafeArea: true,
       showDragHandle: true,
+      isScrollControlled: true,
       builder: (context) {
         return SizedBox(
           width: double.infinity,
