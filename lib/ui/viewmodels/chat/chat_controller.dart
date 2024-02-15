@@ -34,7 +34,7 @@ class ChatController extends GetxController {
       Chat chat = Chat()
         ..name = '新对话'
         ..provider = 'OpenAI'
-        ..model = 'ChatGPT-4'
+        ..model = 'gpt-4'
         ..temperature = PrefsHelper.defaultTemperature
         ..historyMessages = PrefsHelper.defaultHistoryMessages
         ..createdAt = DateTime.now()
@@ -69,7 +69,7 @@ class ChatController extends GetxController {
     Chat chat = Chat()
       ..name = '新对话'
       ..provider = 'OpenAI'
-      ..model = 'ChatGPT-3.5-turbo'
+      ..model = 'gpt-4'
       ..temperature = PrefsHelper.defaultTemperature
       ..historyMessages = PrefsHelper.defaultHistoryMessages
       ..createdAt = DateTime.now()
@@ -100,7 +100,7 @@ class ChatController extends GetxController {
       Chat chat = Chat()
         ..name = '新对话'
         ..provider = 'OpenAI'
-        ..model = 'ChatGPT-4'
+        ..model = 'gpt-4'
         ..temperature = PrefsHelper.defaultTemperature
         ..historyMessages = PrefsHelper.defaultHistoryMessages
         ..createdAt = DateTime.now()

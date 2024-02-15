@@ -176,7 +176,10 @@ class _ChatViewState extends State<ChatView> {
             return <PopupMenuEntry>[
               PopupMenuItem(
                 onTap: () async {
-                  await Get.toNamed('chat/setting', arguments: c.currentChat);
+                  await Get.toNamed(
+                    'chat/setting',
+                    arguments: c.currentChat.value,
+                  );
                   c.updateChats();
                   _scrollController.addListener(() => _onScroll());
                 },

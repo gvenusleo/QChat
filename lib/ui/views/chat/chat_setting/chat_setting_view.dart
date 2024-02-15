@@ -21,7 +21,7 @@ class _ChatSettingViewState extends State<ChatSettingView> {
   @override
   void initState() {
     super.initState();
-    _chat = Get.arguments.value;
+    _chat = Get.arguments;
     _nameController.text = _chat.name;
   }
 
