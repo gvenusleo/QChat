@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ListItem extends StatelessWidget {
+class ListItemCard extends StatelessWidget {
   final Widget? icon;
   final String title;
   final Widget? trailing;
@@ -9,7 +9,7 @@ class ListItem extends StatelessWidget {
   final bool topRadius;
   final bool bottomRadius;
 
-  const ListItem({
+  const ListItemCard({
     super.key,
     this.icon,
     required this.title,

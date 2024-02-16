@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qchat/ui/widgets/list_item.dart';
+import 'package:qchat/ui/widgets/list_item_card.dart';
 
 class APISettingView extends StatelessWidget {
   const APISettingView({super.key});
@@ -21,7 +21,7 @@ class APISettingView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Column(
                     children: [
-                      ListItem(
+                      ListItemCard(
                         icon: ClipRRect(
                           borderRadius: BorderRadius.circular(36),
                           child: Image.asset(
@@ -37,7 +37,7 @@ class APISettingView extends StatelessWidget {
                         bottomRadius: false,
                       ),
                       const Divider(),
-                      ListItem(
+                      ListItemCard(
                         icon: ClipRRect(
                           borderRadius: BorderRadius.circular(36),
                           child: Image.asset(

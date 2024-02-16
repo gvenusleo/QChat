@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:qchat/common/global.dart';
 import 'package:qchat/models/collections/chat.dart';
 import 'package:qchat/ui/widgets/input_item_card.dart';
-import 'package:qchat/ui/widgets/item_card.dart';
-import 'package:qchat/ui/widgets/list_item.dart';
+import 'package:qchat/ui/widgets/select_item_card.dart';
 import 'package:qchat/ui/widgets/slide_item_card.dart';
 
 class ChatSettingView extends StatefulWidget {
@@ -48,60 +47,41 @@ class _ChatSettingViewState extends State<ChatSettingView> {
               },
             ),
             const SizedBox(height: 12),
-            ItemCard(
+            SelectItemCard(
               title: 'AI 服务',
-              item: InkWell(
-                onTap: _setProvider,
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  width: double.infinity,
-                  height: 48,
-                  margin: const EdgeInsets.all(0),
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.outline,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      _chat.provider,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ),
-              ),
+              selectedItem: _chat.provider,
+              items: allAIProviders.map((e) => e.name).toList(),
+              onSelected: (value) {
+                setState(() {
+                  _chat.provider = value;
+                  _chat.model = allAIProviders
+                      .firstWhere((element) => element.name == value)
+                      .models[0];
+                  _chat.updatedAt = DateTime.now();
+                });
+                isar.writeTxnSync(() {
+                  isar.chats.putSync(_chat);
+                });
+              },
             ),
             const SizedBox(height: 12),
-            ItemCard(
+            SelectItemCard(
               title: 'AI 模型',
-              item: InkWell(
-                onTap: _setModel,
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  width: double.infinity,
-                  height: 48,
-                  margin: const EdgeInsets.all(0),
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.outline,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      _chat.model,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ),
-              ),
+              selectedItem: _chat.model,
+              items: allAIProviders
+                  .firstWhere(
+                    (element) => element.name == _chat.provider,
+                  )
+                  .models,
+              onSelected: (value) {
+                setState(() {
+                  _chat.model = value;
+                  _chat.updatedAt = DateTime.now();
+                });
+                isar.writeTxnSync(() {
+                  isar.chats.putSync(_chat);
+                });
+              },
             ),
             const SizedBox(height: 12),
             SlideItemCard(
@@ -140,125 +120,6 @@ class _ChatSettingViewState extends State<ChatSettingView> {
           ],
         ),
       ),
-    );
-  }
-
-  /// 选择 AI 服务
-  Future<void> _setProvider() async {
-    showModalBottomSheet(
-      context: context,
-      useSafeArea: true,
-      showDragHandle: true,
-      builder: (context) {
-        return SizedBox(
-          width: double.infinity,
-          child: SafeArea(
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              children: [
-                for (int i = 0; i < allAIProviders.length; i++)
-                  Column(
-                    children: [
-                      ListItem(
-                        icon: ClipRRect(
-                          borderRadius: BorderRadius.circular(36),
-                          child: Image.asset(
-                            allAIProviders[i].image,
-                            width: 28,
-                            height: 28,
-                          ),
-                        ),
-                        title: allAIProviders[i].name,
-                        trailing: _chat.provider == allAIProviders[i].name
-                            ? Icon(
-                                Icons.check_rounded,
-                                color: Theme.of(context).colorScheme.primary,
-                              )
-                            : null,
-                        onTap: () {
-                          setState(() {
-                            _chat.provider = allAIProviders[i].name;
-                            _chat.model = allAIProviders[i].models[0];
-                            _chat.updatedAt = DateTime.now();
-                          });
-                          isar.writeTxnSync(() {
-                            isar.chats.putSync(_chat);
-                          });
-                          Navigator.pop(context);
-                        },
-                        color: _chat.provider == allAIProviders[i].name
-                            ? Theme.of(context).colorScheme.primary
-                            : null,
-                        topRadius: i == 0,
-                        bottomRadius: i == allAIProviders.length - 1,
-                      ),
-                      if (i != allAIProviders.length - 1) const Divider(),
-                    ],
-                  ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  /// 选择 AI 模型
-  Future<void> _setModel() async {
-    List<String> modes = allAIProviders
-        .firstWhere(
-          (element) => element.name == _chat.provider,
-        )
-        .models;
-    showModalBottomSheet(
-      context: context,
-      useSafeArea: true,
-      showDragHandle: true,
-      isScrollControlled: true,
-      builder: (context) {
-        return SizedBox(
-          width: double.infinity,
-          child: SafeArea(
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              children: [
-                for (int i = 0; i < modes.length; i++)
-                  Column(
-                    children: [
-                      ListItem(
-                        title: modes[i],
-                        trailing: _chat.model == modes[i]
-                            ? Icon(
-                                Icons.check_rounded,
-                                color: Theme.of(context).colorScheme.primary,
-                              )
-                            : null,
-                        onTap: () {
-                          setState(() {
-                            _chat.model = modes[i];
-                            _chat.updatedAt = DateTime.now();
-                          });
-                          isar.writeTxnSync(() {
-                            isar.chats.putSync(_chat);
-                          });
-                          Navigator.pop(context);
-                        },
-                        color: _chat.model == modes[i]
-                            ? Theme.of(context).colorScheme.primary
-                            : null,
-                        topRadius: i == 0,
-                        bottomRadius: i == modes.length - 1,
-                      ),
-                      if (i != modes.length - 1) const Divider(),
-                    ],
-                  ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qchat/ui/widgets/list_item.dart';
+import 'package:qchat/ui/widgets/list_item_card.dart';
 
 class SettingView extends StatefulWidget {
   const SettingView({super.key});
@@ -24,7 +24,7 @@ class _SettingViewState extends State<SettingView> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: ListItem(
+                  child: ListItemCard(
                     icon: const Icon(Icons.color_lens_outlined),
                     title: '外观设置',
                     onTap: () {
@@ -36,7 +36,7 @@ class _SettingViewState extends State<SettingView> {
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     children: [
-                      ListItem(
+                      ListItemCard(
                         icon: const Icon(Icons.webhook_outlined),
                         title: 'API 设置',
                         onTap: () {
@@ -45,7 +45,7 @@ class _SettingViewState extends State<SettingView> {
                         bottomRadius: false,
                       ),
                       const Divider(),
-                      ListItem(
+                      ListItemCard(
                         icon: const Icon(Icons.dashboard_customize_outlined),
                         title: '默认参数',
                         onTap: () {
