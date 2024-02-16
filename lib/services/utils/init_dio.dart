@@ -3,12 +3,12 @@ import "package:dio/dio.dart";
 /// 初始化 Dio (可能使用代理)
 Dio initDio() {
   final Dio dio = Dio(
-    BaseOptions(
-      connectTimeout: const Duration(seconds: 100),
-      receiveTimeout: const Duration(seconds: 100),
-      sendTimeout: const Duration(seconds: 100),
-    ),
-  );
+      // BaseOptions(
+      //   connectTimeout: const Duration(seconds: 100),
+      //   receiveTimeout: const Duration(seconds: 100),
+      //   sendTimeout: const Duration(seconds: 100),
+      // ),
+      );
   // final bool useProxy = prefs.getBool("useProxy") ?? false;
   // final String proxyAddress = prefs.getString("proxyAddress") ?? "";
   // if (useProxy && proxyAddress.isNotEmpty) {

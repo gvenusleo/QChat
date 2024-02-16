@@ -182,7 +182,7 @@ class ChatController extends GetxController {
         case '智谱 AI':
           await Zhipuai.get(
             msgs,
-            currentChat.value.temperature,
+            currentChat.value,
             startRequest,
             requesting,
             finishRequest,

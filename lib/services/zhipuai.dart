@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:qchat/common/global.dart';
+import 'package:qchat/models/collections/chat.dart';
 import 'package:qchat/models/collections/message.dart';
 import 'package:qchat/services/utils/init_dio.dart';
 
@@ -12,7 +13,7 @@ class Zhipuai {
   /// https://open.bigmodel.cn/dev/api#http
   static Future<void> get(
     List<Message> messages,
-    double temperature,
+    Chat chat,
     Function(String) onInsert,
     Function(String) onAdd,
     Function(String) onFinish,
@@ -32,9 +33,11 @@ class Zhipuai {
     };
     final Map<String, dynamic> data = {
       'model': 'glm-4',
-      'messages': prompts,
-      'stream': 'True',
-      'temperature': temperature,
+      'messages': [
+        {"role": "user", "content": "你好"}
+      ],
+      'stream': true,
+      'temperature': chat.temperature.toStringAsFixed(2),
     };
     final Dio dio = initDio();
     final Response response = await dio.post(
