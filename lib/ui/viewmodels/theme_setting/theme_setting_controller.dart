@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qchat/common/font_helper.dart';
+import 'package:qchat/common/global.dart';
 import 'package:qchat/common/prefs_helper.dart';
 
 class ThemeSettingController extends GetxController {
@@ -27,6 +28,11 @@ class ThemeSettingController extends GetxController {
     Get.changeThemeMode(
       [ThemeMode.system, ThemeMode.light, ThemeMode.dark][value],
     );
+    logger.i('切换到主题模式：${[
+      ThemeMode.system,
+      ThemeMode.light,
+      ThemeMode.dark
+    ][value]}');
   }
 
   // 设置动态颜色
@@ -34,6 +40,7 @@ class ThemeSettingController extends GetxController {
     useDynamicColor.value = value;
     PrefsHelper.setUseDynamicColor(value);
     Get.forceAppUpdate();
+    logger.i('切换动态颜色：$value');
   }
 
   // 设置主题字体
@@ -41,11 +48,13 @@ class ThemeSettingController extends GetxController {
     themeFont.value = value;
     PrefsHelper.setThemeFont(value);
     Get.forceAppUpdate();
+    logger.i('切换主题字体：$value');
   }
 
   // 读取所有字体
   Future<void> readAllFont() async {
     fonts.value = await FontHelper.readAllFont();
+    logger.i('读取所有字体：$fonts');
   }
 
   // 导入字体
@@ -54,5 +63,15 @@ class ThemeSettingController extends GetxController {
     if (statue) {
       readAllFont();
     }
+  }
+
+  // 删除指定字体
+  Future<void> deleteFont(String font) async {
+    await FontHelper.deleteFont(font);
+    logger.i('删除字体：$font');
+    if (themeFont.value == font) {
+      updateThemeFont('默认字体');
+    }
+    readAllFont();
   }
 }

@@ -130,8 +130,9 @@ class ThemeSettingView extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(12),
                                 child: Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 6),
+                                  height: 48,
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(
@@ -145,19 +146,37 @@ class ThemeSettingView extends StatelessWidget {
                                       width: 1,
                                     ),
                                   ),
-                                  child: Text(
-                                    font.split('.').first,
-                                    style: TextStyle(
-                                      fontFamily: font,
-                                      fontSize: 16,
-                                      color: c.themeFont.value == font
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .primary
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .outline,
-                                    ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        font.split('.').first,
+                                        style: TextStyle(
+                                          fontFamily: font,
+                                          fontSize: 16,
+                                          color: c.themeFont.value == font
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .outline,
+                                        ),
+                                      ),
+                                      if (font != '默认字体')
+                                        IconButton(
+                                          onPressed: () {
+                                            c.deleteFont(font);
+                                          },
+                                          icon: Icon(
+                                            Icons.delete_forever_outlined,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .error,
+                                          ),
+                                        ),
+                                    ],
                                   ),
                                 ),
                               ),
