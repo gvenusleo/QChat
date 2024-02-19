@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:markdown/markdown.dart' as md;
+// import 'package:markdown/markdown.dart' as md;
 import 'package:qchat/common/global.dart';
 import 'package:qchat/models/collections/message.dart';
-import 'package:qchat/plugins/latex_block_syntax.dart';
-import 'package:qchat/plugins/latex_element_builder.dart';
-import 'package:qchat/plugins/latex_inline_syntax.dart';
+// import 'package:qchat/plugins/latex_block_syntax.dart';
+// import 'package:qchat/plugins/latex_element_builder.dart';
+// import 'package:qchat/plugins/latex_inline_syntax.dart';
 
 class MsgCard extends StatefulWidget {
   final Message msg;
@@ -179,17 +179,17 @@ class _MsgCardState extends State<MsgCard> {
                   blockquotePadding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 ),
-                builders: {
-                  'latex': LatexElementBuilder(
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                },
-                extensionSet: md.ExtensionSet(
-                  [LatexBlockSyntax()],
-                  [LatexInlineSyntax()],
-                ),
+                // builders: {
+                //   'latex': LatexElementBuilder(
+                //     textStyle: const TextStyle(
+                //       fontSize: 16,
+                //     ),
+                //   ),
+                // },
+                // extensionSet: md.ExtensionSet(
+                //   [LatexBlockSyntax()],
+                //   [LatexInlineSyntax()],
+                // ),
               ),
             ],
           ),
