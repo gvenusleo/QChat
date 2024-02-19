@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:openai_dart/openai_dart.dart';
+import 'package:qchat/common/global.dart';
 import 'package:qchat/common/prefs_helper.dart';
 import 'package:qchat/models/collections/chat.dart';
 import 'package:qchat/models/collections/message.dart';
@@ -32,6 +33,9 @@ class MoonshotAIBot {
             )
           : ChatCompletionMessage.assistant(content: e.content));
     }
+    logger.i('[Service]: Moonshot AI\n[Model]: ${chat.model}\n'
+        '[API Key]: $apiKey\n[Base Url]: $baseUrl\n'
+        '[Temperature]: ${chat.temperature}\n[Query]: ${messages.last.content}');
     final chatStream = client.createChatCompletionStream(
       request: CreateChatCompletionRequest(
         model: ChatCompletionModelString(chat.model),

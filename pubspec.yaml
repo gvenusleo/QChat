@@ -9,7 +9,6 @@ environment:
 
 dependencies:
   crypto: ^3.0.3
-  dio: ^5.4.0
   dynamic_color: ^1.6.9
   file_picker: ^6.1.1
   flutter:
@@ -20,6 +19,7 @@ dependencies:
   flutter_math_fork: ^0.7.2
   fluttertoast: ^8.2.4
   get: ^4.6.6
+  http: ^1.2.0
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
   logger: ^2.0.2+1

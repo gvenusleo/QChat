@@ -15,6 +15,7 @@ Future<void> initApp() async {
   logger = Logger(
     printer: PrettyPrinter(
       printTime: true,
+      printEmojis: false,
     ),
   );
   WidgetsFlutterBinding.ensureInitialized();
