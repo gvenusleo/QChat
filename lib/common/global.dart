@@ -31,10 +31,22 @@ const List<AIProvider> allAIProviders = [
     image: 'assets/ai/openai.png',
   ),
   AIProvider(
+    name: 'Moonshot AI',
+    models: [
+      'moonshot-v1-8k',
+      'moonshot-v1-32k',
+      'moonshot-v1-128k',
+    ],
+    image: 'assets/ai/moonshotai.png',
+  ),
+  AIProvider(
     name: '智谱 AI',
-    models: ['ChatGLM-Turbo'],
+    models: [
+      'glm-4',
+      'glm-3-turbo',
+    ],
     image: 'assets/ai/zhipuai.png',
-  )
+  ),
 ];
 
 class AIProvider {

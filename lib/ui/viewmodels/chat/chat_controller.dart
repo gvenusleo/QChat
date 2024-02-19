@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:isar/isar.dart';
 import 'package:qchat/common/global.dart';
 import 'package:qchat/common/prefs_helper.dart';
+import 'package:qchat/services/moonshotai.dart';
 import 'package:qchat/services/openai.dart';
 import 'package:qchat/services/zhipuai.dart';
 import 'package:qchat/models/collections/chat.dart';
@@ -179,8 +180,17 @@ class ChatController extends GetxController {
             finishRequest,
           );
           break;
+        case 'Moonshot AI':
+          await MoonshotAIBot.get(
+            msgs,
+            currentChat.value,
+            startRequest,
+            requesting,
+            finishRequest,
+          );
+          break;
         case '智谱 AI':
-          await Zhipuai.get(
+          await ZhipuaiBot.get(
             msgs,
             currentChat.value,
             startRequest,

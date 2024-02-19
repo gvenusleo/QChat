@@ -24,7 +24,7 @@ class ThemeSettingController extends GetxController {
   // 设置主题模式
   void updateThemeMode(int value) {
     themeMode.value = value;
-    PrefsHelper.setThemeMode(value);
+    PrefsHelper.updateThemeMode(value);
     Get.changeThemeMode(
       [ThemeMode.system, ThemeMode.light, ThemeMode.dark][value],
     );
@@ -38,7 +38,7 @@ class ThemeSettingController extends GetxController {
   // 设置动态颜色
   void updateDynamicColor(bool value) {
     useDynamicColor.value = value;
-    PrefsHelper.setUseDynamicColor(value);
+    PrefsHelper.updateUseDynamicColor(value);
     Get.forceAppUpdate();
     logger.i('切换动态颜色：$value');
   }
@@ -46,7 +46,7 @@ class ThemeSettingController extends GetxController {
   // 设置主题字体
   void updateThemeFont(String value) {
     themeFont.value = value;
-    PrefsHelper.setThemeFont(value);
+    PrefsHelper.updateThemeFont(value);
     Get.forceAppUpdate();
     logger.i('切换主题字体：$value');
   }

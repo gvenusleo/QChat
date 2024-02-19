@@ -41,6 +41,23 @@ class APISettingView extends StatelessWidget {
                         icon: ClipRRect(
                           borderRadius: BorderRadius.circular(36),
                           child: Image.asset(
+                            'assets/ai/moonshotai.png',
+                            width: 28,
+                            height: 28,
+                          ),
+                        ),
+                        title: 'Moonshot AI',
+                        onTap: () {
+                          Get.toNamed('/setting/api/moonshotai');
+                        },
+                        topRadius: false,
+                        bottomRadius: false,
+                      ),
+                      const Divider(),
+                      ListItemCard(
+                        icon: ClipRRect(
+                          borderRadius: BorderRadius.circular(36),
+                          child: Image.asset(
                             'assets/ai/zhipuai.png',
                             width: 28,
                             height: 28,

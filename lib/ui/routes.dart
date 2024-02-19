@@ -3,6 +3,7 @@ import 'package:qchat/ui/views/chat/chat_view.dart';
 import 'package:qchat/ui/views/chat/chat_setting/chat_setting_view.dart';
 import 'package:qchat/ui/views/search/search_view.dart';
 import 'package:qchat/ui/views/setting/api_setting/api_setting_view.dart';
+import 'package:qchat/ui/views/setting/api_setting/moonshot_setting_view.dart';
 import 'package:qchat/ui/views/setting/api_setting/openai_setting_view.dart';
 import 'package:qchat/ui/views/setting/api_setting/zhipuai_setting_view.dart';
 import 'package:qchat/ui/views/setting/parameter_setting/parameter_setting_view.dart';
@@ -25,6 +26,10 @@ class AppRputes {
     GetPage(name: '/setting/api', page: () => const APISettingView()),
     // OpenAI API 设置
     GetPage(name: '/setting/api/openai', page: () => const OpenAISettingView()),
+    // Moonshot AI API 设置
+    GetPage(
+        name: '/setting/api/moonshotai',
+        page: () => const MoonshotAISettingView()),
     // 智谱 AI API 设置
     GetPage(
         name: '/setting/api/zhipuai', page: () => const ZhipuAISettingView()),

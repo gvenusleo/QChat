@@ -8,7 +8,7 @@ build-isar:
     @flutter pub run build_runner build
 
 # Build Android apk
-build-android:
+build-apk:
     @echo "------------------------------"
     @echo "Build Android......."
-    @flutter build apk --split-per-abi
+    @flutter build apk --split-per-abi -v

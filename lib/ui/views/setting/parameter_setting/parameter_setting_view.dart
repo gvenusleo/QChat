@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qchat/common/global.dart';
+import 'package:qchat/common/prefs_helper.dart';
 import 'package:qchat/ui/widgets/slide_item_card.dart';
 
 class ParameterSettingView extends StatefulWidget {
@@ -9,8 +9,8 @@ class ParameterSettingView extends StatefulWidget {
 }
 
 class _ParameterSettingViewState extends State<ParameterSettingView> {
-  final double _tem = prefs.getDouble('defaultTemperature') ?? 0.7;
-  final int _his = prefs.getInt('defaultHistoryMessage') ?? 3;
+  final double _tem = PrefsHelper.defaultTemperature;
+  final int _his = PrefsHelper.defaultHistoryMessages;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _ParameterSettingViewState extends State<ParameterSettingView> {
                   maxValue: 1.0,
                   divisions: 19,
                   afterChange: (value) async {
-                    prefs.setDouble('defaultTemperature', value);
+                    PrefsHelper.updateDefaultTemperature(value);
                   },
                 ),
                 const SizedBox(height: 12),
@@ -45,7 +45,7 @@ class _ParameterSettingViewState extends State<ParameterSettingView> {
                   maxValue: 20,
                   divisions: 20,
                   afterChange: (value) async {
-                    prefs.setInt('defaultHistoryMessage', value.toInt());
+                    PrefsHelper.updateDefaultHistoryMessages(value.toInt());
                   },
                   stringFixed: 0,
                 ),

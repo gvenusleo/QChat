@@ -5,8 +5,9 @@ import 'package:qchat/common/prefs_helper.dart';
 import 'package:qchat/models/collections/chat.dart';
 import 'package:qchat/models/collections/message.dart';
 
-/// OpenAI
-class OpenAIBot {
+/// Moonshot AI
+/// https://platform.moonshot.cn/docs
+class MoonshotAIBot {
   static Future<void> get(
     List<Message> messages,
     Chat chat,
@@ -14,15 +15,11 @@ class OpenAIBot {
     Function(String) onAdd,
     Function(String) onFinish,
   ) async {
-    String apiKey = PrefsHelper.openAIKey.trim();
+    String apiKey = PrefsHelper.moonshotAIKey.trim();
     if (apiKey.isEmpty) {
-      apiKey = Platform.environment['OPENAI_API_KEY'] ?? '';
+      apiKey = Platform.environment['MOONSHOTAI_API_KEY'] ?? '';
     }
-    String baseUrl = PrefsHelper.openAIBaseUrl;
-    if (baseUrl == 'https://api.openai.com/v1') {
-      baseUrl = Platform.environment['OPENAI_BASE_URL'] ??
-          'https://api.openai.com/v1';
-    }
+    const String baseUrl = 'https://api.moonshot.cn/v1';
     final client = OpenAIClient(
       apiKey: apiKey,
       baseUrl: baseUrl,
@@ -37,7 +34,7 @@ class OpenAIBot {
     }
     final chatStream = client.createChatCompletionStream(
       request: CreateChatCompletionRequest(
-        model: ChatCompletionModel.modelId(chat.model),
+        model: ChatCompletionModelString(chat.model),
         messages: msgs,
         temperature: chat.temperature,
       ),

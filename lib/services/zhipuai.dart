@@ -1,15 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
-import 'package:qchat/common/global.dart';
+import 'package:flutter/services.dart';
+import 'package:qchat/common/prefs_helper.dart';
 import 'package:qchat/models/collections/chat.dart';
 import 'package:qchat/models/collections/message.dart';
 import 'package:qchat/services/utils/init_dio.dart';
 
 /// 智谱 AI
-class Zhipuai {
+class ZhipuaiBot {
   /// https://open.bigmodel.cn/dev/api#http
   static Future<void> get(
     List<Message> messages,
@@ -18,7 +20,10 @@ class Zhipuai {
     Function(String) onAdd,
     Function(String) onFinish,
   ) async {
-    final String apiKey = (prefs.getString('zhipuAIKey') ?? '').trim();
+    String apiKey = PrefsHelper.zhipuAIKey.trim();
+    if (apiKey.isEmpty) {
+      apiKey = Platform.environment['ZHIPUAI_API_KEY'] ?? '';
+    }
     final List<Map<String, String>> prompts = [];
     for (Message e in messages) {
       prompts.add({
@@ -33,14 +38,12 @@ class Zhipuai {
     };
     final Map<String, dynamic> data = {
       'model': 'glm-4',
-      'messages': [
-        {"role": "user", "content": "你好"}
-      ],
+      'messages': prompts,
       'stream': true,
       'temperature': chat.temperature.toStringAsFixed(2),
     };
     final Dio dio = initDio();
-    final Response response = await dio.post(
+    final response = await dio.post(
       url,
       data: data,
       options: Options(
@@ -49,26 +52,26 @@ class Zhipuai {
       ),
     );
     String result = '';
-    bool first = true;
-    await for (final item in response.data.stream) {
-      String lines = utf8.decode(item).toString();
-      logger.i(lines);
-      ZhipuSSEModel sse = ZhipuSSEModel.fromData(lines);
-      if (sse.event == 'add') {
-        if (sse.data.isNotEmpty) {
-          result += sse.data;
-          if (first) {
-            first = false;
-            result = result.trimLeft();
-            onInsert(result);
-          } else {
-            onAdd(result);
-          }
-        }
-      } else {
-        onFinish(result);
-      }
-    }
+    onInsert(result);
+    StreamTransformer<Uint8List, List<int>> unit8Transformer =
+        StreamTransformer.fromHandlers(
+      handleData: (data, sink) {
+        sink.add(List<int>.from(data));
+      },
+    );
+    await response.data?.stream
+        .transform(unit8Transformer)
+        .transform(const Utf8Decoder())
+        .transform(const LineSplitter())
+        .where((final i) =>
+            i.startsWith('data: ') && !i.endsWith('[DONE]') && i != '')
+        .listen((event) {
+      final Map<String, dynamic> json = jsonDecode(event.substring(6));
+      final String content = json['choices'][0]['delta']['content'];
+      result += content;
+      onAdd(result);
+    });
+    onFinish(result);
   }
 
   /// JWT 组装
@@ -91,32 +94,5 @@ class Zhipuai {
         .convert(utf8.encode('$encodedHeader.$encodedPayload'))
         .bytes);
     return '$encodedHeader.$encodedPayload.$signature';
-  }
-}
-
-/// 智谱 AI SSE 解析
-class ZhipuSSEModel {
-  String? event = '';
-  String? id = '';
-  String data = '';
-  ZhipuSSEModel({required this.data, required this.id, required this.event});
-  ZhipuSSEModel.fromData(String data) {
-    List lines = data.split('\n');
-    lines = lines.sublist(0, lines.length - 2);
-    for (String line in lines) {
-      if (line.startsWith('event:')) {
-        event = line.split('event:')[1];
-      } else if (line.startsWith('id:')) {
-        id = line.split('id:')[1];
-      } else if (line.startsWith('data:')) {
-        if (line.substring(5).isEmpty) {
-          this.data = '${this.data}\n';
-        } else {
-          this.data = '${this.data}${line.substring(5)}';
-        }
-      } else {
-        this.data = '${this.data}\n$line';
-      }
-    }
   }
 }
