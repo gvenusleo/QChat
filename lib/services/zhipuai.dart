@@ -55,17 +55,15 @@ class ZhipuaiBot {
         ..headers.addAll(headers)
         ..body = jsonEncode(data),
     );
-    response.stream.transform(const _ZhipuAIStreamTransformer()).listen(
-      (final value) {
-        final Map<String, dynamic> map = json.decode(value);
-        String content = map['choices'][0]['delta']['content'];
-        result += content;
-        onAdd(result);
-        logger.i(result);
-      },
-    );
+    await for (String line
+        in response.stream.transform(const _ZhipuAIStreamTransformer())) {
+      final Map<String, dynamic> map = json.decode(line);
+      String content = map['choices'][0]['delta']['content'];
+      result += content;
+      onAdd(result);
+    }
     onFinish(result);
-    logger.i(result);
+    client.close();
   }
 
   /// JWT 组装
@@ -97,9 +95,9 @@ class _ZhipuAIStreamTransformer
 
   @override
   Stream<String> bind(final Stream<List<int>> stream) {
-    return stream //
-        .transform(utf8.decoder) //
-        .transform(const LineSplitter()) //
+    return stream
+        .transform(utf8.decoder)
+        .transform(const LineSplitter())
         .where((final i) => i.startsWith('data: ') && !i.endsWith('[DONE]'))
         .map((final item) => item.substring(6));
   }
