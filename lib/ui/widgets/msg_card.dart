@@ -160,14 +160,14 @@ class _MsgCardState extends State<MsgCard> {
                   codeblockDecoration: BoxDecoration(
                     color: Theme.of(context)
                         .colorScheme
-                        .surfaceVariant
+                        .surfaceContainerHighest
                         .withAlpha(150),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   blockquoteDecoration: BoxDecoration(
                     color: Theme.of(context)
                         .colorScheme
-                        .surfaceVariant
+                        .surfaceContainerHighest
                         .withAlpha(150),
                     border: Border(
                       left: BorderSide(

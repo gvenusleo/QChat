@@ -16,7 +16,10 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant.withAlpha(150),
+        color: Theme.of(context)
+            .colorScheme
+            .surfaceContainerHighest
+            .withAlpha(150),
         borderRadius: BorderRadius.circular(12),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 12),

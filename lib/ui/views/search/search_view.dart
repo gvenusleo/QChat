@@ -65,7 +65,8 @@ class _SearchViewState extends State<SearchView> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(48),
                 ),
-                tileColor: Theme.of(context).colorScheme.surfaceVariant,
+                tileColor:
+                    Theme.of(context).colorScheme.surfaceContainerHighest,
               ),
             ),
           ],

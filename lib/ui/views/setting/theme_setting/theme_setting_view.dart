@@ -102,7 +102,7 @@ class ThemeSettingView extends StatelessWidget {
                         subtitle: const Text('根据手机壁纸自动调整前景颜色'),
                         tileColor: Theme.of(context)
                             .colorScheme
-                            .surfaceVariant
+                            .surfaceContainerHighest
                             .withAlpha(150),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12)),

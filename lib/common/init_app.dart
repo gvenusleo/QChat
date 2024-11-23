@@ -14,8 +14,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> initApp() async {
   logger = Logger(
     printer: PrettyPrinter(
-      printTime: true,
       printEmojis: false,
+      dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
     ),
   );
   WidgetsFlutterBinding.ensureInitialized();

@@ -104,7 +104,9 @@ class _ChatViewState extends State<ChatView> {
                       maxLines: 10,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Theme.of(context).colorScheme.surfaceVariant,
+                        fillColor: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest,
                         border: InputBorder.none,
                         contentPadding: const EdgeInsets.all(12),
                         suffixIcon: c.isRequesting.value
@@ -129,7 +131,7 @@ class _ChatViewState extends State<ChatView> {
             ),
             IconButton.filled(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                   Theme.of(context).colorScheme.secondary,
                 ),
               ),
@@ -307,7 +309,7 @@ class _ChatViewState extends State<ChatView> {
                         borderRadius: BorderRadius.circular(12),
                         color: Theme.of(context)
                             .colorScheme
-                            .surfaceVariant
+                            .surfaceContainerHighest
                             .withAlpha(150),
                       ),
                       child: const Column(
@@ -339,7 +341,7 @@ class _ChatViewState extends State<ChatView> {
                         borderRadius: BorderRadius.circular(12),
                         color: Theme.of(context)
                             .colorScheme
-                            .surfaceVariant
+                            .surfaceContainerHighest
                             .withAlpha(150),
                       ),
                       child: const Column(
@@ -376,7 +378,7 @@ class _ChatViewState extends State<ChatView> {
                     borderRadius: BorderRadius.circular(12),
                     color: Theme.of(context)
                         .colorScheme
-                        .surfaceVariant
+                        .surfaceContainerHighest
                         .withAlpha(150),
                   ),
                   child: Row(

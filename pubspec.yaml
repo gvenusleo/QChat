@@ -10,12 +10,12 @@ environment:
 dependencies:
   crypto: ^3.0.3
   dynamic_color: ^1.6.9
-  file_picker: ^6.1.1
+  file_picker: ^8.1.4
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_markdown: ^0.6.18+3
+  flutter_markdown: ^0.7.4+1
   flutter_math_fork: ^0.7.2
   fluttertoast: ^8.2.4
   get: ^4.6.6
@@ -24,7 +24,7 @@ dependencies:
   isar_flutter_libs: ^3.1.0+1
   logger: ^2.0.2+1
   markdown: ^7.1.1
-  openai_dart: ^0.1.6+1
+  openai_dart: ^0.4.4
   path_provider: ^2.1.2
   shared_preferences: ^2.2.2
 
@@ -34,7 +34,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^3.0.1
+  flutter_lints: ^5.0.0
   isar_generator: ^3.1.0+1
   build_runner: ^2.4.7
 
